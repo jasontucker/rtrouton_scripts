@@ -42,11 +42,17 @@ SECURITY=
 # variable to "thedrisin" (no quotes.)
 PASSWORD=
   
+#Which Guest Network should we remove?
+#Quotes if there are spaces in the name.
+GUESTSSID=
+
 # Once the running OS is determined, the settings for the specified
 # wireless network are created and set as the first preferred network listed
   
 if [[ ${osvers} -ge 7 ]]; then
+	  networksetup -removepreferredwirelessnetwork $wifiDevice $GUESTSSID
     networksetup -addpreferredwirelessnetworkatindex $wifiDevice $SSID $INDEX $SECURITY $PASSWORD
 else
+  	networksetup -removepreferredwirelessnetwork AirPort $GUESTSSID
     networksetup -addpreferredwirelessnetworkatindex AirPort $SSID $INDEX $SECURITY $PASSWORD
 fi
